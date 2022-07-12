@@ -5,28 +5,9 @@ class World {
     walkingBackwards = false;
     camera_x = 0;
     character = new Character();
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken(),
-    ];
-    clouds = [
-        new Cloud()
-    ];
-    backgroundObjects = [
-        new Background ('../img/5_background/layers/air.png', -719),
-        new Background ('../img/5_background/layers/3_third_layer/2.png', -719),
-        new Background ('../img/5_background/layers/2_second_layer/2.png', -719),
-        new Background ('../img/5_background/layers/1_first_layer/2.png', -719),
-        new Background ('../img/5_background/layers/air.png', 0),
-        new Background ('../img/5_background/layers/3_third_layer/1.png', 0),
-        new Background ('../img/5_background/layers/2_second_layer/1.png', 0),
-        new Background ('../img/5_background/layers/1_first_layer/1.png', 0),
-        new Background ('../img/5_background/layers/air.png', 719),
-        new Background ('../img/5_background/layers/3_third_layer/2.png', 719),
-        new Background ('../img/5_background/layers/2_second_layer/2.png', 719),
-        new Background ('../img/5_background/layers/1_first_layer/2.png', 719)
-    ];
+    enemies = level_1.enemies;
+    clouds = level_1.clouds;
+    backgroundObjects = level_1.backgroundObjects;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // uses the context framework for js
