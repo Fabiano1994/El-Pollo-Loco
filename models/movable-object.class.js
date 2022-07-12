@@ -23,6 +23,13 @@ class MovableObject {
         });
     }
 
+    playAnimation(images) {
+        let i = this.currentImage % this.IMAGES_WALKING.length; //  basically like a for loop -> 0, 1, 2, 3, 4, 5, (repeats itself)
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+    }
+
     moveRight() {
         console.log('Moving right');
     }
