@@ -5,9 +5,7 @@ class World {
     walkingBackwards = false;
     camera_x = 0;
     character = new Character();
-    enemies = level_1.enemies;
-    clouds = level_1.clouds;
-    backgroundObjects = level_1.backgroundObjects;
+    level = level_1;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // uses the context framework for js
@@ -26,10 +24,10 @@ class World {
 
         this.ctx.translate(this.camera_x, 0);
 
-        this.addObjectsToMap(this.backgroundObjects);
+        this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.enemies);
-        this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.clouds);
 
         this.ctx.translate(-this.camera_x, 0);
 
