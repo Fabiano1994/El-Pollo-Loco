@@ -6,6 +6,7 @@ class World {
     camera_x = 0;
     character = new Character();
     level = level_1;
+    background_sound = new Audio('audio/background_theme.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // uses the context framework for js
@@ -13,6 +14,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        // this.background_sound.play();
     }
 
     setWorld() { // this function gives the character.world all things from .this (e.g. keyboard) and you can acces it with "world.character.world"

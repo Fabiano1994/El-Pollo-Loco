@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-    speed = 5;
+    speed = 8;
     world;
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -10,6 +10,8 @@ class Character extends MovableObject {
         'img/2_character_pepe/2_walk/W-26.png'
 
     ];
+
+    walking_sound = new Audio('audio/footstep.mp3');
 
 
     constructor() {
@@ -25,10 +27,12 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed; //    adds x variable to the speed variable (eg 100 + 5) when right key is pressed 
                 this.walkingBackwards = false;
+                this.walking_sound.play();
             }
             if (this.world.keyboard.LEFT  && this.x > 0) {
                 this.x -= this.speed;
                 this.walkingBackwards = true;
+                this.walking_sound.play();
             }
             this.world.camera_x = -this.x + 100;  //  moves camera to according where character goes
         }, 1000 / 60);
