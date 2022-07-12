@@ -3,6 +3,7 @@ class World {
     ctx;
     keyboard;
     walkingBackwards = false;
+    camera_x = 0;
     character = new Character();
     enemies = [
         new Chicken(),
@@ -13,14 +14,22 @@ class World {
         new Cloud()
     ];
     backgroundObjects = [
+        new Background ('../img/5_background/layers/air.png', -719),
+        new Background ('../img/5_background/layers/3_third_layer/2.png', -719),
+        new Background ('../img/5_background/layers/2_second_layer/2.png', -719),
+        new Background ('../img/5_background/layers/1_first_layer/2.png', -719),
         new Background ('../img/5_background/layers/air.png', 0),
         new Background ('../img/5_background/layers/3_third_layer/1.png', 0),
         new Background ('../img/5_background/layers/2_second_layer/1.png', 0),
-        new Background ('../img/5_background/layers/1_first_layer/1.png', 0)
+        new Background ('../img/5_background/layers/1_first_layer/1.png', 0),
+        new Background ('../img/5_background/layers/air.png', 719),
+        new Background ('../img/5_background/layers/3_third_layer/2.png', 719),
+        new Background ('../img/5_background/layers/2_second_layer/2.png', 719),
+        new Background ('../img/5_background/layers/1_first_layer/2.png', 719)
     ];
 
     constructor(canvas, keyboard) {
-        this.ctx = canvas.getContext('2d');
+        this.ctx = canvas.getContext('2d'); // uses the context framework for js
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
@@ -34,10 +43,14 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);    // clears the canvas everytime before it draws
 
+        this.ctx.translate(this.camera_x, 0);
+
         this.addObjectsToMap(this.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.clouds);
+
+        this.ctx.translate(-this.camera_x, 0);
 
 
 
@@ -55,18 +68,18 @@ class World {
 
     addToMap(mo) {  //moveableObject
 
-        if (mo.walkingBackwards) {
-            this.ctx.save();
-            this.ctx.translate(mo.width, 0);
-            this.ctx.scale(-1, 1);
-            mo.x = mo.x * -1;
+        if (mo.walkingBackwards) { // if left key is pressed (walkingBackwards = true)
+            this.ctx.save();    //  it saves the current attributes
+            this.ctx.translate(mo.width, 0); // mirror character 180 degrees to other direction
+            this.ctx.scale(-1, 1); //   moves character a bit to the left
+            mo.x = mo.x * -1;   // mirrors x coordinates 
         }
 
         this.ctx.drawImage (mo.img, mo.x, mo.y, mo.width, mo.height);
 
         if (mo.walkingBackwards) {
             mo.x = mo.x * -1;
-            this.ctx.restore();
+            this.ctx.restore(); //  resets everything again (character moves forwards on the same coordinates)
         }
     }
 }

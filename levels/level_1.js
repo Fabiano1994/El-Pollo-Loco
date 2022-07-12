@@ -1,0 +1,1 @@
+const level_1 = new Level();
