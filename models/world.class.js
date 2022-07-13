@@ -5,6 +5,7 @@ class World {
     walkingBackwards = false;
     camera_x = 0;
     character = new Character();
+    endboss = new Endboss();
     level = level_1;
     background_sound = new Audio('audio/background_theme.mp3');
 
@@ -14,11 +15,22 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
         // this.background_sound.play();
     }
 
     setWorld() { // this function gives the character.world all things from .this (e.g. keyboard) and you can acces it with "world.character.world"
         this.character.world = this;
+        this.endboss.world = this;
+    }
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach(enemy => {
+                if(this.character.isColliding(enemy) ) {
+                    console.log('Collision with', enemy);}
+            });
+        }, 200);
     }
 
     draw() {
@@ -36,7 +48,7 @@ class World {
 
 
         let self = this;
-        requestAnimationFrame(function() {  // function to draw the picture repeatedly (how many fps it draws is according to you pc specs)
+        requestAnimationFrame(function () {  // function to draw the picture repeatedly (how many fps it draws is according to you pc specs)
             self.draw();
         });
     }
@@ -50,17 +62,28 @@ class World {
     addToMap(mo) {  //moveableObject
 
         if (mo.walkingBackwards) { // if left key is pressed (walkingBackwards = true)
-            this.ctx.save();    //  it saves the current attributes
-            this.ctx.translate(mo.width, 0); // mirror character 180 degrees to other direction
-            this.ctx.scale(-1, 1); //   moves character a bit to the left
-            mo.x = mo.x * -1;   // mirrors x coordinates 
+            this.flipImage(mo);
         }
 
-        this.ctx.drawImage (mo.img, mo.x, mo.y, mo.width, mo.height);
+        mo.draw(this.ctx);
+        mo.drawFrame(this.ctx);
 
         if (mo.walkingBackwards) {
-            mo.x = mo.x * -1;
-            this.ctx.restore(); //  resets everything again (character moves forwards on the same coordinates)
+            this.flipImageBack(mo);
         }
     }
+
+    flipImage(mo) {
+        this.ctx.save();    //  it saves the current attributes
+        this.ctx.translate(mo.width, 0); // mirror character 180 degrees to other direction
+        this.ctx.scale(-1, 1); //   moves character a bit to the left
+        mo.x = mo.x * -1;   // mirrors x coordinates 
+    }
+
+    flipImageBack(mo) {
+        mo.x = mo.x * -1;
+        this.ctx.restore(); //  resets everything again (character moves forwards on the same coordinates)
+    }
+
+
 }
