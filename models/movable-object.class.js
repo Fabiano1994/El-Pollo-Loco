@@ -1,53 +1,39 @@
-class MovableObject {
-    x = 120;
-    y = 220;
-    img;
-    width = 100;
-    height = 200;
-    imageCache = [];
-    currentImage = 0;
+class MovableObject extends DrawableObject {
     speed = 0.15;
     speedY = 0;
     acceleration = 4;
     walkingBackwards = false;
-
-
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) { //  if instance of Char. or instance of Chick. then the code will be applied 
-        ctx.beginPath();
-        ctx.lineWidth = "3";
-        ctx.strokeStyle = "blue";
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
-        }
-    }
+    healthBar = 100;
+    lastHit = 0;
 
     isColliding(mo) {
         return this.x + this.width > mo.x &&
-        this.y + this.height > mo.y &&
-        this.x < mo.x &&
-        this.y < mo.y + mo.height;
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height;
+    }
+
+    hit() {
+        this.healthBar -= 5;
+        if (this.healthBar < 0) {
+            this.healthBar = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isHurt() {
+        let timePassed = new Date().getTime() - this.lastHit;   //  miliseconds since 01.01.1970 - miliseconds since last time we got hit = difference in ms
+        timePassed = timePassed / 1000; //  difference in s
+        return timePassed < 1;
+    }
+
+    isDead() {
+        return this.healthBar == 0;
     }
 
     playAnimation(images) {
-        let i = this.currentImage % this.IMAGES_WALKING.length; //  basically like a for loop -> 0, 1, 2, 3, 4, 5, (repeats itself)
+        let i = this.currentImage % images.length; //  basically like a for loop -> 0, 1, 2, 3, 4, 5, (repeats itself)
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;

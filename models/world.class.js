@@ -8,6 +8,7 @@ class World {
     endboss = new Endboss();
     level = level_1;
     background_sound = new Audio('audio/background_theme.mp3');
+    statusbar = new Statusbar;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // uses the context framework for js
@@ -28,7 +29,8 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach(enemy => {
                 if(this.character.isColliding(enemy) ) {
-                    console.log('Collision with', enemy);}
+                    this.character.hit();
+                    console.log('Energy =', this.character.healthBar)}
             });
         }, 200);
     }
@@ -39,9 +41,10 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.backgroundObjects);
+        this.addToMap(this.statusbar);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.enemies);
 
         this.ctx.translate(-this.camera_x, 0);
 
