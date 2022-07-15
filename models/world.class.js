@@ -28,9 +28,10 @@ class World {
     checkCollisions() {
         setInterval(() => {
             this.level.enemies.forEach(enemy => {
-                if(this.character.isColliding(enemy) ) {
+                if (this.character.isColliding(enemy)) {
                     this.character.hit();
-                    console.log('Energy =', this.character.healthBar)}
+                    this.statusbar.setPercentage(this.character.healthBar);
+                }
             });
         }, 200);
     }
@@ -39,9 +40,12 @@ class World {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);    // clears the canvas everytime before it draws
 
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.level.backgroundObjects);
+
+        this.ctx.translate(-this.camera_x, 0); // to make statusbar sticky
         this.addToMap(this.statusbar);
+        this.ctx.translate(this.camera_x, 0); // to make statusbar sticky
+
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);

@@ -1,6 +1,7 @@
 class MovableObject extends DrawableObject {
     speed = 0.15;
     speedY = 0;
+    speedX = 0;
     acceleration = 4;
     walkingBackwards = false;
     healthBar = 100;
