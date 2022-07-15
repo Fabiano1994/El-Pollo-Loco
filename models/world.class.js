@@ -9,6 +9,7 @@ class World {
     level = level_1;
     background_sound = new Audio('audio/background_theme.mp3');
     statusbar = new Statusbar;
+    throwableObject = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // uses the context framework for js
@@ -16,7 +17,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
         // this.background_sound.play();
     }
 
@@ -25,15 +26,27 @@ class World {
         this.endboss.world = this;
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach(enemy => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.statusbar.setPercentage(this.character.healthBar);
-                }
-            });
+            this.checkCollisions();
+            this.checkThrownObjects();
         }, 200);
+    }
+
+    checkThrownObjects() {
+        if(this.keyboard.SPACE) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
+            this.throwableObject.push(bottle);
+        }
+    }
+
+    checkCollisions() {
+        this.level.enemies.forEach(enemy => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusbar.setPercentage(this.character.healthBar);
+            }
+        });
     }
 
     draw() {
@@ -42,13 +55,14 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
 
-        this.ctx.translate(-this.camera_x, 0); // to make statusbar sticky
+        this.ctx.translate(-this.camera_x, 0); // to make statusbar fixed
         this.addToMap(this.statusbar);
-        this.ctx.translate(this.camera_x, 0); // to make statusbar sticky
+        this.ctx.translate(this.camera_x, 0); // to make statusbar fixed
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObject);
 
         this.ctx.translate(-this.camera_x, 0);
 
