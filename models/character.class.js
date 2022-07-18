@@ -47,7 +47,7 @@ class Character extends MovableObject {
 
 
     constructor() { //  is basically a basket in which you put all the necessary items for your project first
-        super().loadImage('../img/2_character_pepe/2_walk/W-21.png');
+        super().loadImage('./img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
