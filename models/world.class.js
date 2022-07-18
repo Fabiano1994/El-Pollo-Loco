@@ -7,7 +7,7 @@ class World {
     character = new Character();
     endboss = new Endboss();
     level = level_1;
-    background_sound = new Audio('audio/background_theme.mp3');
+    background_sound = new Audio('./audio/background_theme.mp3');
     statusbar = new Statusbar;
     throwableObject = [];
 
