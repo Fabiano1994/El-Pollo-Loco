@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,11 +23,22 @@
     <script src="./levels/level_1.js"></script>
     <link rel="icon" type="image/x-icon" href="./img/2_character_pepe/sombrero-32.png">
 </head>
-<body onload="init()">
-    
-    <h1>El Pollo Loco</h1>
 
-    <canvas id="canvas" width="720px" height="480px"></canvas>
+<body>
+
+    <div class="startScreen" id="startScreen">
+        <img src="./img/9_intro_outro_screens/start/startscreen_1.png">
+    </div>
+
+    <div class="btnDiv">
+        <button id="startBtn" onclick="init()">START</button>
+    </div>
+
+    <div class="d-none" id="canvasDiv">
+        <h1>El Pollo Loco</h1>
+        <canvas id="canvas" width="720px" height="480px"></canvas>
+    </div>
 
 </body>
+
 </html>

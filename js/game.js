@@ -6,6 +6,9 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    document.getElementById('canvasDiv').classList.remove('d-none');
+    document.getElementById('startScreen').classList.add('d-none');
+    document.getElementById('startBtn').classList.add('d-none');
 }
 
 window.addEventListener("keydown", (event) => {
@@ -37,7 +40,7 @@ window.addEventListener("keyup", (event) => {
     if (event.keyCode == 38 || event.keyCode == 87) {
         keyboard.UP = false;
     }
-    if (event.keyCode == 40|| event.keyCode == 83) {
+    if (event.keyCode == 40 || event.keyCode == 83) {
         keyboard.DOWN = false;
     }
     if (event.keyCode == 32) {

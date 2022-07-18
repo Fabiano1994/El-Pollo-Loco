@@ -2,8 +2,42 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0;
 }
 
 canvas {
     background-color: black;
+}
+
+#canvasDiv {
+    text-align: center;
+}
+
+.startScreen img{
+    height: 100%;
+    width: 100%;
+}
+
+.d-none {
+    display: none;
+}
+
+.btnDiv {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+}
+
+.btnDiv Button {
+    height: 80px;
+    width: 270px;
+    background-color: #ff2c0094;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-size: xx-large;
+}
+
+.btnDiv Button:hover {
+    cursor: pointer;
 }
