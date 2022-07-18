@@ -61,12 +61,14 @@ class MovableObject extends DrawableObject {
         this.x += this.speed; //    adds x variable to the speed variable (eg 100 + 5) when right key is pressed 
         this.walkingBackwards = false;
         this.walking_sound.play();
+        this.walking_sound.volume = 0.5;
     }
 
     moveLeft() {
         this.x -= this.speed;
         this.walkingBackwards = true;
         this.walking_sound.play();
+        this.walking_sound.volume = 0.5;
     }
 
     jump() {
