@@ -73,6 +73,8 @@ class MovableObject extends DrawableObject {
 
     jump() {
         this.speedY = 30;
+        this.jump_sound.play();
+        this.jump_sound.volume = 0.5;
     }
 
     moveLeftEnemies() {

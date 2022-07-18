@@ -18,7 +18,14 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        // this.background_sound.play();
+        this.backgroundMusic();
+    }
+
+    backgroundMusic() {
+        setInterval(() => {
+            this.background_sound.play(); 
+            this.background_sound.volume = 0.1;
+        }, 1500);
     }
 
     setWorld() { // this function gives the character.world all things from .this (e.g. keyboard) and you can acces it with "world.character.world"

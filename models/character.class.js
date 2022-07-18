@@ -43,6 +43,7 @@ class Character extends MovableObject {
 
 
     walking_sound = new Audio('audio/footstep.mp3');
+    jump_sound = new Audio('audio/jump.mp3');
 
 
     constructor() { //  is basically a basket in which you put all the necessary items for your project first
@@ -56,7 +57,7 @@ class Character extends MovableObject {
     }
 
     animate() {
-
+        
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
@@ -70,9 +71,10 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 100;  //  moves camera to according where character goes
         }, 1000 / 60);
 
-        setInterval(() => {
+        let stopIntervall = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                clearInterval(stopIntervall);
             }
 
             else if (this.isHurt()) {
