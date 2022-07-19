@@ -9,6 +9,8 @@ class World {
     level = level_1;
     background_sound = new Audio('./audio/background_theme.mp3');
     statusbar = new Statusbar;
+    statusbarCoin = new StatusbarCoin;
+    statusbarBottle = new StatusbarBottle;
     throwableObject = [];
 
     constructor(canvas, keyboard) {
@@ -64,8 +66,11 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0); // to make statusbar fixed
         this.addToMap(this.statusbar);
+        this.addToMap(this.statusbarCoin);
+        this.addToMap(this.statusbarBottle);
         this.ctx.translate(this.camera_x, 0); // to make statusbar fixed
-
+        // this.addObjectsToMap(this.level.coins);
+        // this.addObjectsToMap(this.level.bottles);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
