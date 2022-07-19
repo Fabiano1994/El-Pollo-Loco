@@ -12,6 +12,7 @@ class World {
     statusbarCoin = new StatusbarCoin;
     statusbarBottle = new StatusbarBottle;
     throwableObject = [];
+    endscreen;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // uses the context framework for js
@@ -58,6 +59,16 @@ class World {
         });
     }
 
+    gameOver() {
+        setInterval(() => {
+            world.keyboard.RIGHT = false;
+            world.keyboard.LEFT = false;
+            world.keyboard.SPACE = false;
+            world.keyboard.UP = false;
+        }, 15);
+
+    }
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);    // clears the canvas everytime before it draws
 
@@ -69,13 +80,16 @@ class World {
         this.addToMap(this.statusbarCoin);
         this.addToMap(this.statusbarBottle);
         this.ctx.translate(this.camera_x, 0); // to make statusbar fixed
+        this.addToMap(this.character);
         // this.addObjectsToMap(this.level.coins);
         // this.addObjectsToMap(this.level.bottles);
-        this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObject);
-
+        if (this.endscreen) {
+            this.addToMap(this.endscreen);
+            this.gameOver();
+        }
         this.ctx.translate(-this.camera_x, 0);
 
 

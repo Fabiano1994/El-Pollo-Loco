@@ -7,9 +7,11 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     document.getElementById('canvasDiv').classList.remove('d-none');
+    document.getElementById('howTo').classList.remove('d-none');
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('startBtn').classList.add('d-none');
 }
+
 
 window.addEventListener("keydown", (event) => {
     if (event.keyCode == 39 || event.keyCode == 68) {
