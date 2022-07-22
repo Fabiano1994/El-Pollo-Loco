@@ -13,6 +13,7 @@ class World {
     statusbarBottle = new StatusbarBottle;
     throwableObject = [];
     endscreen;
+    coinCounter = new Coincounter(this);
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // uses the context framework for js
@@ -34,6 +35,7 @@ class World {
     setWorld() { // this function gives the character.world all things from .this (e.g. keyboard) and you can acces it with "world.character.world"
         this.character.world = this;
         this.endboss.world = this;
+        this.level.coins.world = this;
     }
 
     run() {
@@ -59,6 +61,18 @@ class World {
         });
     }
 
+    collectCoins() {
+        this.level.coins.forEach((coin) => {
+            if (this.character.isColliding(coin)) {
+                this.world.coinCounter.counter++;
+                // this.soundCoin.play();
+                coin.removeCoin();
+                console.log(collectCoins);
+            }
+        })
+    }
+
+
     gameOver() {
         setInterval(() => {
             world.keyboard.RIGHT = false;
@@ -81,7 +95,7 @@ class World {
         this.addToMap(this.statusbarBottle);
         this.ctx.translate(this.camera_x, 0); // to make statusbar fixed
         this.addToMap(this.character);
-        // this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.coins);
         // this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
