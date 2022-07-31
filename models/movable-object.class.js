@@ -6,6 +6,8 @@ class MovableObject extends DrawableObject {
     walkingBackwards = false;
     healthBar = 100;
     lastHit = 0;
+    coinsCollected = 0;
+    bottlesCollected = 0;
 
     isColliding(mo) {
         return this.x + this.width > mo.x &&
@@ -81,5 +83,19 @@ class MovableObject extends DrawableObject {
         setInterval(() => {
             this.x -= this.speed;
         }, 50);
+    }
+
+    collectCoins() {
+        if (this.coinsCollected < 100) {
+            this.coinsCollected += 20;
+            // this.coinsCollected.play();
+        }
+    }
+
+    collectBottles() {
+        if (this.bottlesCollected < 100) {
+            this.bottlesCollected += 20;
+            // this.coinsCollected.play();
+        }
     }
 }

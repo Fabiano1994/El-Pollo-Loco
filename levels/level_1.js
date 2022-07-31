@@ -52,5 +52,11 @@ const level_1 = new Level(
         new CollectableObject('./img/8_coin/coin_1.png', 1300, 350),
         new CollectableObject('./img/8_coin/coin_1.png', 1400, 350),
         new CollectableObject('./img/8_coin/coin_1.png', 1500, 350),
+        new CollectableObject('./img/6_salsa_bottle/salsa_bottle.png', 500, 350),
+        new CollectableObject('./img/6_salsa_bottle/salsa_bottle.png', 700, 300),
+        new CollectableObject('./img/6_salsa_bottle/salsa_bottle.png', 900, 350),
+        new CollectableObject('./img/6_salsa_bottle/salsa_bottle.png', 1000, 350),
+        new CollectableObject('./img/6_salsa_bottle/salsa_bottle.png', 1300, 300),
+        new CollectableObject('./img/6_salsa_bottle/salsa_bottle.png', 1400, 350),
     ]
 );

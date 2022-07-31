@@ -13,7 +13,6 @@ class World {
     statusbarBottle = new StatusbarBottle;
     throwableObject = [];
     endscreen;
-    coinCounter = new Coincounter(this);
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // uses the context framework for js
@@ -42,6 +41,8 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrownObjects();
+            this.checkCoinsCollison();
+            // this.checkBottlesCollison();
         }, 200);
     }
 
@@ -61,16 +62,30 @@ class World {
         });
     }
 
-    collectCoins() {
-        this.level.coins.forEach((coin) => {
+    checkCoinsCollison() {
+        this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-                this.world.coinCounter.counter++;
                 // this.soundCoin.play();
-                coin.removeCoin();
-                console.log(collectCoins);
+                this.character.collectCoins();
+                // coin.removeCoin();
+                this.statusbarCoin.setPercentage(this.character.coinsCollected);
+                this.level.coins.splice(index, 1);                
             }
         })
     }
+
+    // checkBottlesCollison() {
+    //     this.level.bottles.forEach((bottle, index) => {
+    //         if (this.character.isColliding(bottle)) {
+    //             // this.soundCoin.play();
+    //             this.character.collectBottles();
+    //             // coin.removeCoin();
+    //             this.statusbarBottle.setPercentage(this.character.bottlesCollected);
+    //             this.level.bottle.splice(index, 1);                
+    //         }
+    //     })
+    // }
+
 
 
     gameOver() {
@@ -88,16 +103,16 @@ class World {
 
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.coins);
+        // this.addObjectsToMap(this.level.bottles);
         this.ctx.translate(-this.camera_x, 0); // to make statusbar fixed
         this.addToMap(this.statusbar);
         this.addToMap(this.statusbarCoin);
         this.addToMap(this.statusbarBottle);
         this.ctx.translate(this.camera_x, 0); // to make statusbar fixed
         this.addToMap(this.character);
-        this.addObjectsToMap(this.level.coins);
-        // this.addObjectsToMap(this.level.bottles);
-        this.addObjectsToMap(this.level.clouds);
+
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObject);
         if (this.endscreen) {
