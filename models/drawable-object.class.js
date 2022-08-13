@@ -17,11 +17,11 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) { //  if instance of Char. or instance of Chick. then the code will be applied 
+        if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof Endboss) { //  if instance of Char. or instance of Chick. then the code will be applied 
             ctx.beginPath();
             ctx.lineWidth = "3";
-            ctx.strokeStyle = "blue";
-            // ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.strokeStyle = "transparent";
+            ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
     }

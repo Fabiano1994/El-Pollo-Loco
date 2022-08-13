@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {
     acceleration = 4;
     walkingBackwards = false;
     healthBar = 100;
+    healthBarBoss = 100;
     lastHit = 0;
     coinsCollected = 0;
     bottlesCollected = 0;
@@ -29,6 +30,10 @@ class MovableObject extends DrawableObject {
         let timePassed = new Date().getTime() - this.lastHit;   //  miliseconds since 01.01.1970 - miliseconds since last time we got hit = difference in ms
         timePassed = timePassed / 1000; //  difference in s
         return timePassed < 1;
+    }
+
+    isDeadBoss() {
+        return this.healthBarBoss == 0;
     }
 
     isDead() {

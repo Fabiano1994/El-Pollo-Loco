@@ -9,7 +9,6 @@ class Character extends MovableObject {
         './img/2_character_pepe/2_walk/W-24.png',
         './img/2_character_pepe/2_walk/W-25.png',
         './img/2_character_pepe/2_walk/W-26.png'
-
     ];
 
     IMAGES_JUMPING = [
@@ -57,7 +56,7 @@ class Character extends MovableObject {
     }
 
     animate() {
-        
+
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
@@ -75,6 +74,7 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 clearInterval(stopIntervall);
+                this.world.keyboard = false;
             }
 
             else if (this.isHurt()) {
@@ -82,12 +82,10 @@ class Character extends MovableObject {
             }
 
             else if (this.isAboveGround()) {
-                //  jumping animation
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
 
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    //  walking animation
                     this.playAnimation(this.IMAGES_WALKING);
                 }
             }

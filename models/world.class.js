@@ -12,7 +12,7 @@ class World {
     statusbarCoin = new StatusbarCoin;
     statusbarBottle = new StatusbarBottle;
     throwableObject = [];
-    endscreen;
+    endscreen = new Endscreen;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // uses the context framework for js
@@ -33,7 +33,7 @@ class World {
 
     setWorld() { // this function gives the character.world all things from .this (e.g. keyboard) and you can acces it with "world.character.world"
         this.character.world = this;
-        this.endboss.world = this;
+        // this.endboss.world = this;
         this.level.coins.world = this;
         this.level.bottles.world = this;
     }
@@ -44,6 +44,7 @@ class World {
             this.checkThrownObjects();
             this.checkCoinsCollison();
             this.checkBottlesCollison();
+            this.killBoss();
         }, 200);
     }
 
@@ -85,17 +86,40 @@ class World {
         })
     }
 
+    killBoss() {
 
+        this.throwableObject.forEach(bottles => {
+            
+            if (this.throwableObject.length > 0) {
+                if (this.endboss.isColliding(bottles)) {
+                    // this.bottleSmashSound.play();
 
-    gameOver() {
-        setInterval(() => {
-            world.keyboard.RIGHT = false;
-            world.keyboard.LEFT = false;
-            world.keyboard.SPACE = false;
-            world.keyboard.UP = false;
-        }, 15);
+                    // this.throwableObject.splice(bottles, 1);
+
+                    if (this.endboss.healthBarBoss > 0) {
+                        this.endboss.healthBarBoss -= 20;
+                        // if (this.level.endboss.healthBarBoss == 0) {
+                        //     // this.gameOver();
+                        // }
+                    }
+                }
+            }
+
+        });
 
     }
+
+
+
+    // gameOver() {
+    //     setInterval(() => {
+    //         world.keyboard.RIGHT = false;
+    //         world.keyboard.LEFT = false;
+    //         world.keyboard.SPACE = false;
+    //         world.keyboard.UP = false;
+    //     }, 15);
+
+    // }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);    // clears the canvas everytime before it draws
@@ -111,13 +135,14 @@ class World {
         this.addToMap(this.statusbarBottle);
         this.ctx.translate(this.camera_x, 0); // to make statusbar fixed
         this.addToMap(this.character);
-
+        
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObject);
-        if (this.endscreen) {
+        this.ctx.translate(-this.camera_x, 0);
+        if (this.statusbar.percentage == 0) {
             this.addToMap(this.endscreen);
-            this.gameOver();
         }
+        this.ctx.translate(this.camera_x, 0);
         this.ctx.translate(-this.camera_x, 0);
 
 
