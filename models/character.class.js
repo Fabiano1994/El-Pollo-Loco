@@ -1,4 +1,5 @@
 class Character extends MovableObject {
+    endboss = new Endboss();
     y = 80;
     speed = 8;
     world;
@@ -43,6 +44,7 @@ class Character extends MovableObject {
 
     walking_sound = new Audio('./audio/footstep.mp3');
     jump_sound = new Audio('./audio/jump.mp3');
+    collect_sound = new Audio('./audio/collect.mp3');
 
 
     constructor() { //  is basically a basket in which you put all the necessary items for your project first
@@ -74,6 +76,10 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 clearInterval(stopIntervall);
+                this.world.keyboard = false;
+            }
+
+            else if (this.world.endboss.healthBarBoss == 0)  {
                 this.world.keyboard = false;
             }
 

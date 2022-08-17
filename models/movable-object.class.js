@@ -26,6 +26,15 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    hitEndboss() {
+        this.healthBarBoss -= 5;
+        if (this.healthBarBoss < 0) {
+            this.healthBarBoss = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit;   //  miliseconds since 01.01.1970 - miliseconds since last time we got hit = difference in ms
         timePassed = timePassed / 1000; //  difference in s
@@ -81,7 +90,12 @@ class MovableObject extends DrawableObject {
     jump() {
         this.speedY = 30;
         this.jump_sound.play();
-        this.jump_sound.volume = 0.5;
+        this.jump_sound.volume = 0.1;
+    }
+
+    collect_audio() {
+        this.collect_sound.play();
+        this.collect_sound.volume = 0.7;
     }
 
     moveLeftEnemies() {
@@ -93,14 +107,14 @@ class MovableObject extends DrawableObject {
     collectCoins() {
         if (this.coinsCollected < 100) {
             this.coinsCollected += 20;
-            // this.coinsCollected.play();
+            this.collect_audio();
         }
     }
 
     collectBottles() {
         if (this.bottlesCollected < 100) {
             this.bottlesCollected += 20;
-            // this.coinsCollected.play();
+            this.collect_audio();
         }
     }
 }
