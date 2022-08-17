@@ -46,25 +46,26 @@ class Endboss extends MovableObject {
         this.endbossHit_sound.volume = 0.7;
     }
 
-    // isDead_audio() {
-    //     this.endbossDead_sound.play();
-    //     this.endbossDead_sound.volume = 0.7;
-    // }
+    isDead_audio() {
+        this.endbossDead_sound.play();
+        this.endbossDead_sound.volume = 0.7;
+    }
 
     animate() {
-        setInterval(() => {
+        let stopIntervall = setInterval(() => {
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.isHit_audio();
             }
             else if (this.isDeadBoss()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                // this.isDead_audio();
+                this.isDead_audio();
+                clearInterval(stopIntervall);
             }
             else {
                 this.playAnimation(this.IMAGES_WALKING);
             }
 
-        }, 300);
+        }, 200);
     }
 } 
