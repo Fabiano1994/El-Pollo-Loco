@@ -6,12 +6,54 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    mobileButtonPress();
     document.getElementById('canvasDiv').classList.remove('d-none');
     document.getElementById('howTo').classList.remove('d-none');
     document.getElementById('startScreen').classList.add('d-none');
     document.getElementById('startBtn').classList.add('d-none');
 }
 
+function mobileButtonPress() {
+    document.getElementById('btnLeft').addEventListener("touchstart", (event) => {
+        event.preventDefault();
+            keyboard.LEFT = true;
+    });
+
+    document.getElementById('btnLeft').addEventListener("touchend", (event) => {
+        event.preventDefault();
+            keyboard.LEFT = false;
+    });
+
+    document.getElementById('btnRight').addEventListener("touchstart", (event) => {
+        event.preventDefault();
+            keyboard.RIGHT = true;
+    });
+
+    document.getElementById('btnRight').addEventListener("touchend", (event) => {
+        event.preventDefault();
+            keyboard.RIGHT = false;
+    });
+        
+    document.getElementById('btnJump').addEventListener("touchstart", (event) => {
+        event.preventDefault();
+            keyboard.UP = true;
+    });
+
+    document.getElementById('btnJump').addEventListener("touchend", (event) => {
+        event.preventDefault();
+            keyboard.UP = false;
+    });
+
+    document.getElementById('btnThrow').addEventListener("touchstart", (event) => {
+        event.preventDefault();
+            keyboard.SPACE = true;
+    });
+
+    document.getElementById('btnThrow').addEventListener("touchend", (event) => {
+        event.preventDefault();
+            keyboard.SPACE = false;
+    });
+}
 
 window.addEventListener("keydown", (event) => {
     if (event.keyCode == 39 || event.keyCode == 68) {

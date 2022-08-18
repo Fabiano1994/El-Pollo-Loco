@@ -11,6 +11,31 @@ body {
 
 canvas {
     background-color: black;
+    display: block;
+}
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 85vh;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    #howTo {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    #hud {
+        display: none;
+    }
 }
 
 #canvasDiv {
@@ -56,4 +81,15 @@ canvas {
 .btnDiv Button:hover {
     cursor: pointer;
     background-color: #FFDB05;
+}
+
+.mobile {
+    display: flex;
+    justify-content: space-between;
+    width: 80vw;
+}
+
+.mobile button{
+    background-color: #ffffff00;
+    border: none;
 }
