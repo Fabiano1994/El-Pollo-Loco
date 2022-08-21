@@ -32,11 +32,11 @@ canvas {
     }
 }
 
-/* @media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1000px) {
     #hud {
         display: none;
     }
-} */
+}
 
 #canvasDiv {
     text-align: center;
